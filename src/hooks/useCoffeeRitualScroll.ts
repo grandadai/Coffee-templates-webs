@@ -36,7 +36,7 @@ export function useCoffeeRitualScroll({
       gsap.set(milk, { opacity: 0, y: -40, scaleY: 0.4, transformOrigin: '50% 0%' })
       gsap.set(ice, { opacity: 0, y: -120, rotate: -20 })
       gsap.set(sugar, { opacity: 0, scale: 0.7, y: -30 })
-      gsap.set(splash, { opacity: 0, scale: 0.6 })
+      gsap.set(splash, { opacity: 0, scale: 0.45, rotate: -8 })
       gsap.set(steam, { opacity: 0.08 })
 
       const tl = gsap.timeline({
@@ -65,7 +65,7 @@ export function useCoffeeRitualScroll({
         )
         .to(product, { scale: 1.08, y: -10, ease: 'none' }, 0)
 
-      // 0.15–0.38 milk flows in
+      // 0.12–0.42 milk flows + dominant splash burst
       tl.to(
         milk,
         {
@@ -75,17 +75,29 @@ export function useCoffeeRitualScroll({
           duration: 0.22,
           ease: 'none',
         },
-        0.15,
+        0.12,
       )
         .to(
           splash,
           {
-            opacity: 0.9,
-            scale: 1,
-            duration: 0.18,
+            opacity: 1,
+            scale: 1.28,
+            rotate: 0,
+            stagger: 0.05,
+            duration: 0.24,
             ease: 'none',
           },
-          0.28,
+          0.2,
+        )
+        .to(
+          splash,
+          {
+            scale: 1.12,
+            opacity: 1,
+            duration: 0.2,
+            ease: 'none',
+          },
+          0.44,
         )
 
       // 0.35–0.55 ice cubes drop
@@ -167,6 +179,16 @@ export function useCoffeeRitualScroll({
             ease: 'none',
           },
           0.7,
+        )
+        .to(
+          splash,
+          {
+            scale: 1.18,
+            opacity: 0.95,
+            y: 12,
+            ease: 'none',
+          },
+          0.68,
         )
         .to(steam, { opacity: 0.38, y: -70, ease: 'none' }, 0.75)
     }, root)
