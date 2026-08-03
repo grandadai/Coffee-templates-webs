@@ -47,7 +47,8 @@ export const site = {
         origin: 'Huila, Colombia',
         note: 'Cocoa · Toffee · Cream',
         price: '$24',
-        image: '/assets/coffee/cup-ceramic.png',
+        image: '/assets/coffee/reserve-latte.png',
+        imageFit: 'cover' as const,
       },
       {
         name: 'Cold Brew No. 4',
