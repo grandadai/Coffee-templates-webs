@@ -100,13 +100,18 @@ export function FloatingObject({
             decoding="async"
             draggable={false}
             className="pointer-events-none h-auto w-full object-contain select-none"
-            style={{ transform: `rotate(${config.rotate}deg)` }}
+            style={{
+              transform: `rotate(${config.rotate}deg)`,
+              mixBlendMode: config.blendMode ?? 'normal',
+            }}
           />
           <div
             ref={shadowRef}
             aria-hidden
             className="pointer-events-none absolute left-1/2 -bottom-2 h-5 w-[62%] -translate-x-1/2 rounded-[100%] bg-black/60 blur-lg will-change-transform"
-            style={{ opacity: 0.4 }}
+            style={{
+              opacity: config.ritual === 'splash' ? 0 : 0.4,
+            }}
           />
           </div>
         </div>

@@ -25,20 +25,18 @@ export function useCoffeeRitualScroll({
     const ctx = gsap.context(() => {
       const mockup = root.querySelector('.hero-mockup')
       const product = root.querySelector('.hero-product')
-      const productBase = root.querySelector('.hero-product-base')
-      const productReveal = root.querySelector('.hero-product-reveal')
       const steam = root.querySelectorAll('.smoke-puff')
       const ice = root.querySelectorAll('[data-ritual="ice"]')
       const sugar = root.querySelectorAll('[data-ritual="sugar"]')
+      const splash = root.querySelectorAll('[data-ritual="splash"]')
       const beans = root.querySelectorAll('[data-ritual="bean"]')
       const copy = root.querySelector('.hero-copy')
       const cta = root.querySelectorAll('.hero-cta')
 
       gsap.set(ice, { opacity: 0, y: -120, rotate: -20 })
       gsap.set(sugar, { opacity: 0, scale: 0.7, y: -30 })
+      gsap.set(splash, { opacity: 0, scale: 0.55, y: 30 })
       gsap.set(steam, { opacity: 0.08 })
-      if (productReveal) gsap.set(productReveal, { opacity: 0, scale: 0.94 })
-      if (productBase) gsap.set(productBase, { opacity: 1 })
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -51,64 +49,66 @@ export function useCoffeeRitualScroll({
         },
       })
 
-      // 0.00–0.18 steam intensifies, mockup settles back
-      tl.to(steam, { opacity: 0.28, y: -40, stagger: 0.05, ease: 'none' }, 0)
+      // Steam + stage depth
+      tl.to(steam, { opacity: 0.3, y: -40, stagger: 0.05, ease: 'none' }, 0)
         .to(
           mockup,
           {
             y: 40,
-            scale: 0.92,
-            opacity: 0.72,
+            scale: 0.9,
+            opacity: 0.65,
             rotateX: 12,
             ease: 'none',
           },
           0,
         )
-        .to(product, { scale: 1.08, y: -10, ease: 'none' }, 0)
+        .to(product, { scale: 1.06, y: -8, ease: 'none' }, 0)
 
-      // 0.12–0.45 milk pour + integrated splash reveal on the glass
+      // Dominant splash burst (milk/coffee splash moment)
       tl.to(
-          productReveal,
-          {
-            opacity: 1,
-            scale: 1.06,
-            duration: 0.28,
-            ease: 'none',
-          },
-          0.14,
-        )
-        .to(
-          productBase,
-          {
-            opacity: 0,
-            scale: 1.02,
-            duration: 0.22,
-            ease: 'none',
-          },
-          0.16,
-        )
+        splash,
+        {
+          opacity: 1,
+          scale: 1.2,
+          y: 0,
+          stagger: 0.06,
+          duration: 0.28,
+          ease: 'none',
+        },
+        0.12,
+      )
         .to(
           product,
           {
-            scale: 1.12,
-            y: -16,
-            duration: 0.3,
+            scale: 1.14,
+            y: -18,
+            duration: 0.28,
             ease: 'none',
           },
-          0.14,
+          0.12,
         )
         .to(
           cta,
           {
-            opacity: 0.15,
-            y: 16,
+            opacity: 0.12,
+            y: 18,
             duration: 0.2,
             ease: 'none',
           },
-          0.2,
+          0.18,
+        )
+        .to(
+          splash,
+          {
+            scale: 1.08,
+            opacity: 1,
+            duration: 0.22,
+            ease: 'none',
+          },
+          0.4,
         )
 
-      // 0.35–0.55 ice cubes drop
+      // Ice cubes drop
       tl.to(
         ice,
         {
@@ -119,10 +119,10 @@ export function useCoffeeRitualScroll({
           duration: 0.2,
           ease: 'none',
         },
-        0.35,
+        0.38,
       )
 
-      // 0.50–0.70 sugar dissolves
+      // Sugar dissolves
       tl.to(
         sugar,
         {
@@ -133,7 +133,7 @@ export function useCoffeeRitualScroll({
           stagger: 0.03,
           ease: 'none',
         },
-        0.5,
+        0.52,
       ).to(
         sugar,
         {
@@ -144,10 +144,10 @@ export function useCoffeeRitualScroll({
           stagger: 0.03,
           ease: 'none',
         },
-        0.62,
+        0.64,
       )
 
-      // 0.65–1.00 beans keep orbiting outward, product stays hero
+      // Beans orbit + keep splash dominant
       tl.to(
         beans,
         {
@@ -158,12 +158,12 @@ export function useCoffeeRitualScroll({
           stagger: 0.03,
           ease: 'none',
         },
-        0.65,
+        0.68,
       )
         .to(
           copy,
           {
-            opacity: 0.2,
+            opacity: 0.18,
             y: -30,
             ease: 'none',
           },
@@ -172,9 +172,19 @@ export function useCoffeeRitualScroll({
         .to(
           mockup,
           {
-            opacity: 0.4,
-            scale: 0.86,
-            y: 80,
+            opacity: 0.35,
+            scale: 0.84,
+            y: 90,
+            ease: 'none',
+          },
+          0.7,
+        )
+        .to(
+          splash,
+          {
+            scale: 1.16,
+            opacity: 0.95,
+            y: -8,
             ease: 'none',
           },
           0.7,
@@ -182,19 +192,11 @@ export function useCoffeeRitualScroll({
         .to(
           product,
           {
-            scale: 1.14,
-            y: -18,
+            scale: 1.18,
+            y: -22,
             ease: 'none',
           },
           0.7,
-        )
-        .to(
-          productReveal,
-          {
-            scale: 1.1,
-            ease: 'none',
-          },
-          0.68,
         )
         .to(steam, { opacity: 0.38, y: -70, ease: 'none' }, 0.75)
     }, root)

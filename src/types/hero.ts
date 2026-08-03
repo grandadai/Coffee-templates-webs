@@ -37,6 +37,8 @@ export type FloatingAssetConfig = {
   hideOnMobile?: boolean
   /** Optional ritual role for scroll choreography */
   ritual?: 'bean' | 'ice' | 'sugar' | 'milk' | 'splash' | 'decor'
+  /** Optional CSS mix-blend-mode for liquid/light assets */
+  blendMode?: 'normal' | 'screen' | 'lighten' | 'plus-lighter'
 }
 
 export type ThemeColors = {
