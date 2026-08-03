@@ -86,7 +86,7 @@ export function SplitHeading<T extends ElementType = 'h2'>({
           clearProps: 'willChange',
           scrollTrigger: {
             trigger: el,
-            start: 'top 85%',
+            start: 'clamp(top 85%)',
             once: true,
           },
         },

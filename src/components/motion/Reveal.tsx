@@ -70,7 +70,7 @@ export function Reveal<T extends ElementType = 'div'>({
           clearProps: 'willChange',
           scrollTrigger: {
             trigger: el,
-            start: 'top 85%',
+            start: 'clamp(top 85%)',
             once: true,
           },
         },
