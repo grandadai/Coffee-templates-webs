@@ -90,18 +90,17 @@ export function HeroProduct({
               src={src}
               alt={alt}
               width={width}
-              height={width}
               loading="eager"
               fetchPriority="high"
               decoding="async"
               draggable={false}
-              className="relative z-10 mx-auto h-auto w-full object-contain select-none drop-shadow-[0_35px_70px_rgba(0,0,0,0.5)]"
+              className="relative z-10 mx-auto h-auto w-full object-contain select-none drop-shadow-[0_40px_80px_rgba(0,0,0,0.55)]"
             />
             <div
               ref={shadowRef}
               aria-hidden
-              className="pointer-events-none absolute left-1/2 -bottom-2 z-0 h-7 w-[64%] -translate-x-1/2 rounded-[100%] bg-black/55 blur-xl will-change-transform"
-              style={{ opacity: 0.45 }}
+              className="pointer-events-none absolute left-1/2 bottom-1 z-0 h-8 w-[58%] -translate-x-1/2 rounded-[100%] bg-black/65 blur-2xl will-change-transform"
+              style={{ opacity: 0.5 }}
             />
           </div>
         </div>
