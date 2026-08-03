@@ -7,6 +7,6 @@ export const themes: Record<string, ThemeConfig> = {
   coffee: coffeeTheme,
 }
 
-export const themeList = [agencyTheme, coffeeTheme]
+export const themeList = [coffeeTheme, agencyTheme]
 
 export { agencyTheme, coffeeTheme }

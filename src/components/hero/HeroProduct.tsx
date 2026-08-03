@@ -8,6 +8,7 @@ type HeroProductProps = {
   width: number
   accent: string
   amplitudeScale?: number
+  cinematic?: boolean
 }
 
 export function HeroProduct({
@@ -16,6 +17,7 @@ export function HeroProduct({
   width,
   accent,
   amplitudeScale = 1,
+  cinematic = false,
 }: HeroProductProps) {
   const parallaxRef = useRef<HTMLDivElement>(null)
   const floatRef = useRef<HTMLDivElement>(null)
@@ -46,7 +48,7 @@ export function HeroProduct({
     tl.to(
       el,
       {
-        y: -16 * amplitudeScale,
+        y: -18 * amplitudeScale,
         rotate: 2.5 * amplitudeScale,
         duration: 5.8,
       },
@@ -69,17 +71,19 @@ export function HeroProduct({
 
   return (
     <div
-      className="pointer-events-none absolute left-1/2 top-[46%] z-50 -translate-x-1/2 -translate-y-1/2"
-      style={{ width: `min(${width}px, 58vw)` }}
+      className={`pointer-events-none absolute left-1/2 z-50 -translate-x-1/2 -translate-y-1/2 ${
+        cinematic ? 'top-[58%]' : 'top-[46%]'
+      }`}
+      style={{ width: `min(${width}px, ${cinematic ? '62vw' : '58vw'})` }}
     >
       <div className="hero-product will-change-transform">
         <div ref={parallaxRef} className="will-change-transform">
           <div ref={floatRef} className="relative will-change-transform">
             <div
               aria-hidden
-              className="absolute left-1/2 top-1/2 h-[70%] w-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
+              className="absolute left-1/2 top-1/2 h-[78%] w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
               style={{
-                background: `radial-gradient(circle, ${accent}55 0%, transparent 70%)`,
+                background: `radial-gradient(circle, ${accent}66 0%, transparent 70%)`,
               }}
             />
             <img
@@ -91,13 +95,13 @@ export function HeroProduct({
               fetchPriority="high"
               decoding="async"
               draggable={false}
-              className="relative z-10 mx-auto h-auto w-full object-contain select-none drop-shadow-[0_30px_60px_rgba(0,0,0,0.45)]"
+              className="relative z-10 mx-auto h-auto w-full object-contain select-none drop-shadow-[0_35px_70px_rgba(0,0,0,0.5)]"
             />
             <div
               ref={shadowRef}
               aria-hidden
-              className="pointer-events-none absolute left-1/2 -bottom-2 z-0 h-6 w-[62%] -translate-x-1/2 rounded-[100%] bg-black/55 blur-xl will-change-transform"
-              style={{ opacity: 0.42 }}
+              className="pointer-events-none absolute left-1/2 -bottom-2 z-0 h-7 w-[64%] -translate-x-1/2 rounded-[100%] bg-black/55 blur-xl will-change-transform"
+              style={{ opacity: 0.45 }}
             />
           </div>
         </div>

@@ -5,9 +5,14 @@ import { useBreakpoint } from '@/hooks/useMediaQuery'
 type SmokeLayerProps = {
   color: string
   enabled?: boolean
+  cinematic?: boolean
 }
 
-export function SmokeLayer({ color, enabled = true }: SmokeLayerProps) {
+export function SmokeLayer({
+  color,
+  enabled = true,
+  cinematic = false,
+}: SmokeLayerProps) {
   const rootRef = useRef<HTMLDivElement>(null)
   const { isMobile } = useBreakpoint()
 
@@ -17,12 +22,12 @@ export function SmokeLayer({ color, enabled = true }: SmokeLayerProps) {
     const puffs = rootRef.current.querySelectorAll<HTMLElement>('.smoke-puff')
     const tweens = Array.from(puffs).map((puff, index) =>
       gsap.to(puff, {
-        y: -120 - index * 20,
-        x: (index % 2 === 0 ? 30 : -24) + index * 4,
-        scale: 1.35 + index * 0.08,
+        y: cinematic ? -160 - index * 24 : -120 - index * 20,
+        x: (index % 2 === 0 ? 28 : -22) + index * 4,
+        scale: 1.4 + index * 0.1,
         opacity: 0,
-        duration: 8 + index * 1.4,
-        delay: index * 1.1,
+        duration: 7.5 + index * 1.3,
+        delay: index * 0.9,
         repeat: -1,
         ease: 'sine.out',
       }),
@@ -31,7 +36,7 @@ export function SmokeLayer({ color, enabled = true }: SmokeLayerProps) {
     return () => {
       tweens.forEach((tween) => tween.kill())
     }
-  }, [enabled, isMobile])
+  }, [cinematic, enabled, isMobile])
 
   if (!enabled || isMobile) return null
 
@@ -41,14 +46,15 @@ export function SmokeLayer({ color, enabled = true }: SmokeLayerProps) {
       className="pointer-events-none absolute inset-0 z-[45] overflow-hidden mix-blend-screen"
       aria-hidden
     >
-      {Array.from({ length: 5 }).map((_, index) => (
+      {Array.from({ length: cinematic ? 7 : 5 }).map((_, index) => (
         <div
           key={index}
-          className="smoke-puff absolute left-1/2 top-[48%] h-40 w-40 -translate-x-1/2 rounded-full blur-3xl will-change-transform"
+          className="smoke-puff absolute left-1/2 h-44 w-44 -translate-x-1/2 rounded-full blur-3xl will-change-transform"
           style={{
+            top: cinematic ? '46%' : '48%',
             background: `radial-gradient(circle, ${color} 0%, transparent 70%)`,
-            opacity: 0.18,
-            marginLeft: (index - 2) * 28,
+            opacity: cinematic ? 0.22 : 0.18,
+            marginLeft: (index - 3) * 22,
           }}
         />
       ))}

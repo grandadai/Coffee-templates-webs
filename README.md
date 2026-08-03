@@ -4,8 +4,8 @@ A premium, Awwwards-inspired interactive hero built with **React**, **Vite**, **
 
 This is not a one-off animation. It’s a reusable multi-client stage:
 
+- **Coffee theme (default)** — Instagram-reel cinematic stage: warm mockup behind a large cup, with scroll ritual (steam → milk → ice → sugar → beans)
 - **Agency theme** — website mockup with floating UI cards, cursors, analytics, and glow orbs
-- **Coffee theme** — ceramic cup emerging from the UI with beans, leaves, and soft steam
 
 Swap assets + config to adapt the same motion system for jewelry, footwear, real estate, and more.
 

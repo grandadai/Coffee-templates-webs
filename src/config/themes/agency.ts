@@ -4,6 +4,7 @@ export const agencyTheme: ThemeConfig = {
   id: 'agency',
   name: 'Lumina Studio',
   tagline: 'Digital agency cinematic stage',
+  layout: 'split',
   nav: {
     logo: 'LUMINA',
     links: ['Work', 'Method', 'Studio', 'Contact'],

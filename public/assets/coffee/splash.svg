@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" fill="none">
+  <defs>
+    <linearGradient id="splashGrad" x1="20" y1="20" x2="180" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF9F0" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#E8D2B4" stop-opacity="0.55"/>
+    </linearGradient>
+  </defs>
+  <path d="M20 70 C45 40 70 35 95 48 C110 30 130 28 150 42 C165 30 180 38 188 55 C170 72 150 85 120 88 C95 102 70 95 48 82 C35 90 24 84 20 70Z" fill="url(#splashGrad)"/>
+  <circle cx="62" cy="38" r="6" fill="#FFF8EE" opacity="0.85"/>
+  <circle cx="142" cy="34" r="4" fill="#FFF8EE" opacity="0.75"/>
+  <circle cx="168" cy="58" r="5" fill="#F3E0C8" opacity="0.7"/>
+</svg>

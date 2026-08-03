@@ -10,6 +10,7 @@ type WebsiteMockupProps = {
 export function WebsiteMockup({ theme }: WebsiteMockupProps) {
   const parallaxRef = useRef<HTMLDivElement>(null)
   const isCoffee = theme.id === 'coffee'
+  const cinematic = theme.layout === 'cinematic'
 
   useMouseParallax(10, (x, y, rotateX, rotateY) => {
     if (!parallaxRef.current) return
@@ -23,15 +24,23 @@ export function WebsiteMockup({ theme }: WebsiteMockupProps) {
   })
 
   return (
-    <div className="pointer-events-none absolute left-1/2 top-[48%] z-20 w-[min(720px,78vw)] -translate-x-1/2 -translate-y-1/2 [perspective:1200px]">
+    <div
+      className={`pointer-events-none absolute left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 [perspective:1400px] ${
+        cinematic
+          ? 'top-[56%] w-[min(940px,96vw)]'
+          : 'top-[48%] w-[min(720px,78vw)]'
+      }`}
+    >
       <div className="hero-mockup will-change-transform">
         <div ref={parallaxRef} className="will-change-transform">
           <div
-            className="relative overflow-hidden rounded-[28px] border border-white/15 shadow-[0_40px_120px_rgba(0,0,0,0.55)] will-change-transform"
+            className="relative overflow-hidden rounded-[28px] border border-white/15 shadow-[0_50px_140px_rgba(0,0,0,0.6)] will-change-transform"
             style={{
-              transform: 'rotateX(8deg) rotateY(-6deg)',
+              transform: cinematic
+                ? 'rotateX(12deg) rotateY(-8deg) scale(1.02)'
+                : 'rotateX(8deg) rotateY(-6deg)',
               background: isCoffee
-                ? 'linear-gradient(160deg, rgba(70,42,28,0.92), rgba(28,16,12,0.95))'
+                ? 'linear-gradient(165deg, rgba(78,48,30,0.95), rgba(24,14,10,0.97))'
                 : 'linear-gradient(160deg, rgba(28,36,68,0.92), rgba(10,14,28,0.96))',
             }}
           >
@@ -46,12 +55,16 @@ export function WebsiteMockup({ theme }: WebsiteMockupProps) {
               </div>
             </div>
 
-            <div className="relative aspect-[16/10] overflow-hidden p-5 sm:p-8">
+            <div
+              className={`relative overflow-hidden p-5 sm:p-8 ${
+                cinematic ? 'aspect-[16/11]' : 'aspect-[16/10]'
+              }`}
+            >
               <div
-                className="absolute inset-0 opacity-80"
+                className="absolute inset-0 opacity-85"
                 style={{
                   background: isCoffee
-                    ? 'radial-gradient(circle at 20% 20%, rgba(232,176,122,0.25), transparent 45%), radial-gradient(circle at 80% 70%, rgba(120,70,40,0.35), transparent 50%)'
+                    ? 'radial-gradient(circle at 18% 18%, rgba(232,176,122,0.32), transparent 42%), radial-gradient(circle at 78% 72%, rgba(120,70,40,0.4), transparent 52%), linear-gradient(180deg, rgba(255,240,220,0.05), transparent 40%)'
                     : 'radial-gradient(circle at 20% 20%, rgba(124,92,255,0.28), transparent 45%), radial-gradient(circle at 80% 70%, rgba(65,209,255,0.2), transparent 50%)',
                 }}
               />
@@ -68,20 +81,20 @@ export function WebsiteMockup({ theme }: WebsiteMockupProps) {
                   </div>
                 </div>
 
-                <div className="max-w-[55%]">
+                <div className={cinematic ? 'mx-auto max-w-[58%] text-center' : 'max-w-[55%]'}>
                   <div
-                    className="mb-2 h-2 w-16 rounded-full"
+                    className={`mb-2 h-2 w-16 rounded-full ${cinematic ? 'mx-auto' : ''}`}
                     style={{ background: theme.colors.accent }}
                   />
-                  <div className="mb-2 text-lg font-semibold text-white sm:text-2xl">
+                  <div className="mb-2 font-display text-xl font-semibold text-white sm:text-3xl">
                     {theme.mockup.title}
                   </div>
                   <div className="text-[11px] text-white/55 sm:text-sm">
                     {theme.mockup.subtitle}
                   </div>
-                  <div className="mt-4 flex gap-2">
+                  <div className={`mt-4 flex gap-2 ${cinematic ? 'justify-center' : ''}`}>
                     <div
-                      className="h-7 w-20 rounded-full sm:h-8 sm:w-24"
+                      className="h-7 w-24 rounded-full sm:h-8 sm:w-28"
                       style={{ background: theme.colors.accent }}
                     />
                     <div className="h-7 w-16 rounded-full border border-white/20 sm:h-8 sm:w-20" />
@@ -89,7 +102,7 @@ export function WebsiteMockup({ theme }: WebsiteMockupProps) {
                 </div>
 
                 <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                  {[0.35, 0.55, 0.45].map((opacity, i) => (
+                  {[0.4, 0.6, 0.45].map((opacity, i) => (
                     <div
                       key={i}
                       className="h-12 rounded-xl border border-white/10 bg-white/5 sm:h-16"
@@ -105,14 +118,14 @@ export function WebsiteMockup({ theme }: WebsiteMockupProps) {
               />
               <div
                 aria-hidden
-                className="pointer-events-none absolute -left-1/4 top-0 h-full w-1/2 rotate-12 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                className="pointer-events-none absolute -left-1/4 top-0 h-full w-1/2 rotate-12 bg-gradient-to-r from-transparent via-white/12 to-transparent"
               />
             </div>
           </div>
 
           <div
             aria-hidden
-            className="absolute left-1/2 -bottom-8 h-10 w-[78%] -translate-x-1/2 rounded-[100%] bg-black/50 blur-2xl"
+            className="absolute left-1/2 -bottom-10 h-12 w-[80%] -translate-x-1/2 rounded-[100%] bg-black/55 blur-2xl"
           />
         </div>
       </div>

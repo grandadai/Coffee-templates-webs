@@ -1,4 +1,5 @@
 export type ButtonVariant = 'primary' | 'secondary'
+export type HeroLayout = 'split' | 'cinematic'
 
 export type HeroButton = {
   label: string
@@ -34,6 +35,8 @@ export type FloatingAssetConfig = {
   zIndex: number
   hideOnTablet?: boolean
   hideOnMobile?: boolean
+  /** Optional ritual role for scroll choreography */
+  ritual?: 'bean' | 'ice' | 'sugar' | 'milk' | 'splash' | 'decor'
 }
 
 export type ThemeColors = {
@@ -54,6 +57,7 @@ export type ThemeConfig = {
   id: string
   name: string
   tagline: string
+  layout: HeroLayout
   nav: {
     logo: string
     links: string[]
@@ -88,4 +92,6 @@ export type ThemeConfig = {
     enabled: boolean
     color: string
   }
+  /** Labels shown during the coffee ritual scroll sequence */
+  ritualSteps?: string[]
 }

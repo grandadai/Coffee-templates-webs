@@ -112,8 +112,8 @@ function MethodSection({ theme }: { theme: ThemeConfig }) {
 }
 
 export default function App() {
-  const [themeId, setThemeId] = useState('agency')
-  const theme = themes[themeId] ?? themes.agency
+  const [themeId, setThemeId] = useState('coffee')
+  const theme = themes[themeId] ?? themes.coffee
 
   useLenis(true)
 

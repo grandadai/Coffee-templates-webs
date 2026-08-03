@@ -1,6 +1,7 @@
 import { useEffect, type RefObject } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import type { HeroLayout } from '@/types/hero'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -8,12 +9,14 @@ type UseHeroAnimationsOptions = {
   rootRef: RefObject<HTMLElement | null>
   enabled?: boolean
   themeId?: string
+  layout?: HeroLayout
 }
 
 export function useHeroAnimations({
   rootRef,
   enabled = true,
   themeId,
+  layout = 'split',
 }: UseHeroAnimationsOptions) {
   useEffect(() => {
     const root = rootRef.current
@@ -28,6 +31,9 @@ export function useHeroAnimations({
       const buttons = root.querySelectorAll('.hero-cta')
       const sub = root.querySelector('.hero-sub')
       const bg = root.querySelector('.hero-bg')
+      const ritualOnly = root.querySelectorAll(
+        '[data-ritual="milk"], [data-ritual="ice"], [data-ritual="sugar"], [data-ritual="splash"]',
+      )
 
       gsap.set(bg, { opacity: 0 })
       gsap.set(mockup, { opacity: 0, scale: 0.92 })
@@ -36,6 +42,11 @@ export function useHeroAnimations({
       gsap.set(chars, { yPercent: 120, opacity: 0 })
       gsap.set([buttons, sub], { opacity: 0, y: 24 })
       gsap.set(nav, { opacity: 0, y: -24 })
+
+      // Ritual ingredients stay hidden until scroll sequence (coffee cinematic)
+      if (layout === 'cinematic') {
+        gsap.set(ritualOnly, { opacity: 0 })
+      }
 
       const intro = gsap.timeline({
         defaults: { ease: 'power3.out' },
@@ -47,7 +58,9 @@ export function useHeroAnimations({
         .to(mockup, { opacity: 1, scale: 1, duration: 1.05 }, 0.2)
         .to(product, { opacity: 1, y: 0, scale: 1, duration: 1.05 }, 0.35)
         .to(
-          floats,
+          root.querySelectorAll(
+            '[data-ritual="bean"], [data-ritual="decor"], .hero-float-item:not([data-ritual])',
+          ),
           {
             opacity: 1,
             y: 0,
@@ -79,7 +92,8 @@ export function useHeroAnimations({
           0.95,
         )
 
-      if (mockup && product) {
+      // Split layout keeps the lighter scrub parallax (agency)
+      if (layout === 'split' && mockup && product) {
         const scrollTl = gsap.timeline({
           scrollTrigger: {
             trigger: root,
@@ -144,5 +158,5 @@ export function useHeroAnimations({
     return () => {
       ctx.revert()
     }
-  }, [enabled, rootRef, themeId])
+  }, [enabled, layout, rootRef, themeId])
 }

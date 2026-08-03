@@ -88,6 +88,7 @@ export function FloatingObject({
       <div
         className="hero-float-item will-change-transform"
         data-scroll-speed={config.scrollSpeed}
+        data-ritual={config.ritual}
       >
         <div ref={parallaxRef} className="will-change-transform">
           <div ref={floatRef} className="relative will-change-transform">
