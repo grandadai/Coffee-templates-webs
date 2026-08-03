@@ -82,6 +82,3 @@ src/
 - Avoid putting `overflow` on a section that contains a `sticky` child — it silently
   disables the stickiness. `RitualSection` clips its decorative glow in a nested
   wrapper for this reason.
-- `src/components/hero/` and `src/config/themes/` are the previous multi-theme sprite
-  template. They are no longer rendered by `App.tsx` and can be deleted if you don't
-  want to keep them around.
