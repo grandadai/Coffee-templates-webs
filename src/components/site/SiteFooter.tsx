@@ -64,7 +64,10 @@ export function SiteFooter() {
         </div>
 
         <div className="flex flex-col gap-3 border-t border-espresso/12 pt-8 text-[11px] tracking-[0.14em] text-espresso/50 uppercase md:flex-row md:items-center md:justify-between">
-          <span>© {new Date().getFullYear()} {site.brand.name} {site.brand.sub}</span>
+          <span>
+            © {new Date().getFullYear()} {site.brand.name}
+            {site.brand.sub ? ` ${site.brand.sub}` : ''}
+          </span>
           <span className="normal-case tracking-normal">{site.footer.note}</span>
         </div>
       </div>

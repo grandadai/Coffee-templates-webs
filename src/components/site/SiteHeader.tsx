@@ -15,12 +15,14 @@ export function SiteHeader() {
     >
       <div className="mx-auto flex max-w-[1500px] items-center justify-between gap-6 px-5 md:px-8">
         <a href="#home" className="shrink-0 leading-none">
-          <span className="font-display block text-2xl tracking-[0.06em] text-espresso md:text-[26px]">
+          <span className="font-display block text-2xl tracking-[0.04em] text-espresso md:text-[26px]">
             {site.brand.name}
           </span>
-          <span className="mt-1 block text-[9px] tracking-[0.42em] text-mocha uppercase">
-            {site.brand.sub}
-          </span>
+          {site.brand.sub ? (
+            <span className="mt-1 block text-[9px] tracking-[0.42em] text-mocha uppercase">
+              {site.brand.sub}
+            </span>
+          ) : null}
         </a>
 
         <nav className="hidden items-center gap-8 lg:flex">

@@ -1,7 +1,7 @@
 export const site = {
   brand: {
-    name: 'COFFEE',
-    sub: 'MAISON',
+    name: 'ZeroShiftAI',
+    sub: '',
     tagline: 'Roastery & Atelier · Est. 1987',
   },
   announcements: [
