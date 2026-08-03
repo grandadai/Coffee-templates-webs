@@ -2,6 +2,7 @@ import {
   useEffect,
   useRef,
   type ComponentPropsWithoutRef,
+  type ComponentType,
   type ElementType,
   type ReactNode,
 } from 'react'
@@ -40,7 +41,9 @@ export function SplitHeading<T extends ElementType = 'h2'>({
   duration = 1,
   ...rest
 }: SplitHeadingProps<T>) {
-  const Tag = (as ?? 'h2') as ElementType
+  // Cast through a permissive component type: r3f augments JSX.IntrinsicElements,
+  // so a bare `ElementType` widens into a union JSX can no longer resolve props for.
+  const Tag = (as ?? 'h2') as unknown as ComponentType<Record<string, unknown>>
   const ref = useRef<HTMLElement | null>(null)
   const prefersReducedMotion = usePrefersReducedMotion()
   const tweenDuration = Math.min(MAX_DURATION, Math.max(MIN_DURATION, duration))
