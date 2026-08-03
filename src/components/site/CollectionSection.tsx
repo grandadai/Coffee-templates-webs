@@ -30,6 +30,10 @@ export function CollectionSection() {
         <div className="grid gap-6 md:grid-cols-3">
           {items.map((item, index) => {
             const cover = 'imageFit' in item && item.imageFit === 'cover'
+            const position =
+              'imagePosition' in item && item.imagePosition === 'center'
+                ? 'object-center'
+                : 'object-[center_30%]'
 
             return (
             <Reveal key={item.name} delay={index * 0.08} duration={0.95}>
@@ -56,7 +60,7 @@ export function CollectionSection() {
                     loading="lazy"
                     className={
                       cover
-                        ? 'h-full w-full object-cover object-[center_30%] transition-transform duration-700 group-hover:scale-[1.05]'
+                        ? `h-full w-full object-cover ${position} transition-transform duration-700 group-hover:scale-[1.05]`
                         : 'max-h-[74%] w-auto object-contain drop-shadow-[0_28px_38px_rgba(80,45,15,0.42)] transition-transform duration-700 group-hover:scale-[1.07]'
                     }
                   />

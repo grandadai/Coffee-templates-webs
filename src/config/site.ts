@@ -49,6 +49,7 @@ export const site = {
         price: '$24',
         image: '/assets/coffee/reserve-latte.png',
         imageFit: 'cover' as const,
+        imagePosition: 'center' as const,
       },
       {
         name: 'Cold Brew No. 4',
@@ -57,6 +58,7 @@ export const site = {
         price: '$28',
         image: '/assets/coffee/cold-brew.png',
         imageFit: 'cover' as const,
+        imagePosition: 'center' as const,
       },
       {
         name: 'Gold Roast',
