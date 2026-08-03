@@ -54,7 +54,8 @@ export const site = {
         origin: 'Yirgacheffe, Ethiopia',
         note: 'Jasmine · Citrus · Honey',
         price: '$28',
-        image: '/assets/coffee/cup.png',
+        image: '/assets/coffee/cold-brew.png',
+        imageFit: 'cover' as const,
       },
       {
         name: 'Gold Roast',

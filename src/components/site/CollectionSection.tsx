@@ -28,18 +28,37 @@ export function CollectionSection() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
-          {items.map((item, index) => (
+          {items.map((item, index) => {
+            const cover = 'imageFit' in item && item.imageFit === 'cover'
+
+            return (
             <Reveal key={item.name} delay={index * 0.08} duration={0.95}>
               <article className="group relative overflow-hidden rounded-[26px] border border-espresso/10 bg-cream/55 backdrop-blur-sm transition-[transform,box-shadow] duration-600 hover:-translate-y-2 hover:shadow-[0_40px_80px_-50px_rgba(70,40,15,0.85)]">
-                <div className="relative flex h-64 items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_50%_35%,#f3e2cb_0%,#dcbf98_65%,#c1996d_100%)]">
-                  <span className="absolute top-5 right-5 rounded-full border border-espresso/15 px-3 py-1 text-[10px] tracking-[0.2em] text-espresso/70 uppercase">
+                <div
+                  className={
+                    cover
+                      ? 'relative h-72 overflow-hidden bg-black'
+                      : 'relative flex h-64 items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_50%_35%,#f3e2cb_0%,#dcbf98_65%,#c1996d_100%)]'
+                  }
+                >
+                  <span
+                    className={
+                      cover
+                        ? 'absolute top-5 right-5 z-10 rounded-full border border-cream/25 bg-black/35 px-3 py-1 text-[10px] tracking-[0.2em] text-cream/90 uppercase backdrop-blur-sm'
+                        : 'absolute top-5 right-5 rounded-full border border-espresso/15 px-3 py-1 text-[10px] tracking-[0.2em] text-espresso/70 uppercase'
+                    }
+                  >
                     {item.price}
                   </span>
                   <img
                     src={item.image}
                     alt={item.name}
                     loading="lazy"
-                    className="max-h-[74%] w-auto object-contain drop-shadow-[0_28px_38px_rgba(80,45,15,0.42)] transition-transform duration-700 group-hover:scale-[1.07]"
+                    className={
+                      cover
+                        ? 'h-full w-full object-cover object-[center_30%] transition-transform duration-700 group-hover:scale-[1.05]'
+                        : 'max-h-[74%] w-auto object-contain drop-shadow-[0_28px_38px_rgba(80,45,15,0.42)] transition-transform duration-700 group-hover:scale-[1.07]'
+                    }
                   />
                 </div>
 
@@ -63,7 +82,8 @@ export function CollectionSection() {
                 </div>
               </article>
             </Reveal>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>
