@@ -175,6 +175,7 @@ export function Hero({ theme, onThemeChange, themes = [] }: HeroProps) {
                   accent={theme.colors.accent}
                   amplitudeScale={amplitudeScale}
                   cinematic
+                  revealSrc={theme.product.revealSrc}
                 />
                 {visibleFloats.map((item) => (
                   <FloatingObject
@@ -212,7 +213,7 @@ export function Hero({ theme, onThemeChange, themes = [] }: HeroProps) {
                 </p>
               </div>
 
-              <div className="pointer-events-none absolute inset-x-0 bottom-24 z-[56] flex justify-center gap-3 px-5 md:bottom-28">
+              <div className="pointer-events-none absolute inset-x-0 bottom-16 z-[56] flex justify-center gap-3 px-5 md:bottom-20">
                 {theme.buttons.map((button) => (
                   <a
                     key={button.label}
@@ -283,6 +284,7 @@ export function Hero({ theme, onThemeChange, themes = [] }: HeroProps) {
                   width={theme.product.width}
                   accent={theme.colors.accent}
                   amplitudeScale={amplitudeScale}
+                  revealSrc={theme.product.revealSrc}
                 />
                 {visibleFloats.map((item) => (
                   <FloatingObject

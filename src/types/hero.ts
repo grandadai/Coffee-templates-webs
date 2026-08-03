@@ -82,6 +82,8 @@ export type ThemeConfig = {
     width: number
     /** Optional inset screenshot shown inside the mockup behind the product */
     mockupImage?: string
+    /** Optional ritual reveal image (e.g. pour + splash composite) */
+    revealSrc?: string
   }
   floatingObjects: FloatingAssetConfig[]
   particles: {

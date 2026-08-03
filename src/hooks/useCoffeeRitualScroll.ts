@@ -25,19 +25,20 @@ export function useCoffeeRitualScroll({
     const ctx = gsap.context(() => {
       const mockup = root.querySelector('.hero-mockup')
       const product = root.querySelector('.hero-product')
+      const productBase = root.querySelector('.hero-product-base')
+      const productReveal = root.querySelector('.hero-product-reveal')
       const steam = root.querySelectorAll('.smoke-puff')
-      const milk = root.querySelectorAll('[data-ritual="milk"]')
       const ice = root.querySelectorAll('[data-ritual="ice"]')
       const sugar = root.querySelectorAll('[data-ritual="sugar"]')
-      const splash = root.querySelectorAll('[data-ritual="splash"]')
       const beans = root.querySelectorAll('[data-ritual="bean"]')
       const copy = root.querySelector('.hero-copy')
+      const cta = root.querySelectorAll('.hero-cta')
 
-      gsap.set(milk, { opacity: 0, y: -40, scaleY: 0.4, transformOrigin: '50% 0%' })
       gsap.set(ice, { opacity: 0, y: -120, rotate: -20 })
       gsap.set(sugar, { opacity: 0, scale: 0.7, y: -30 })
-      gsap.set(splash, { opacity: 0, scale: 0.45, rotate: -8 })
       gsap.set(steam, { opacity: 0.08 })
+      if (productReveal) gsap.set(productReveal, { opacity: 0, scale: 0.94 })
+      if (productBase) gsap.set(productBase, { opacity: 1 })
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -65,39 +66,46 @@ export function useCoffeeRitualScroll({
         )
         .to(product, { scale: 1.08, y: -10, ease: 'none' }, 0)
 
-      // 0.12–0.42 milk flows + dominant splash burst
+      // 0.12–0.45 milk pour + integrated splash reveal on the glass
       tl.to(
-        milk,
-        {
-          opacity: 1,
-          y: 30,
-          scaleY: 1,
-          duration: 0.22,
-          ease: 'none',
-        },
-        0.12,
-      )
-        .to(
-          splash,
+          productReveal,
           {
             opacity: 1,
-            scale: 1.28,
-            rotate: 0,
-            stagger: 0.05,
-            duration: 0.24,
+            scale: 1.06,
+            duration: 0.28,
             ease: 'none',
           },
-          0.2,
+          0.14,
         )
         .to(
-          splash,
+          productBase,
+          {
+            opacity: 0,
+            scale: 1.02,
+            duration: 0.22,
+            ease: 'none',
+          },
+          0.16,
+        )
+        .to(
+          product,
           {
             scale: 1.12,
-            opacity: 1,
+            y: -16,
+            duration: 0.3,
+            ease: 'none',
+          },
+          0.14,
+        )
+        .to(
+          cta,
+          {
+            opacity: 0.15,
+            y: 16,
             duration: 0.2,
             ease: 'none',
           },
-          0.44,
+          0.2,
         )
 
       // 0.35–0.55 ice cubes drop
@@ -181,11 +189,9 @@ export function useCoffeeRitualScroll({
           0.7,
         )
         .to(
-          splash,
+          productReveal,
           {
-            scale: 1.18,
-            opacity: 0.95,
-            y: 12,
+            scale: 1.1,
             ease: 'none',
           },
           0.68,
