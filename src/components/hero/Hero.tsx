@@ -82,6 +82,9 @@ export function Hero({ theme, onThemeChange, themes = [] }: HeroProps) {
     const el = decorRef.current
     if (!el || isMobile) return
 
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (media.matches) return
+
     const tween = gsap.to(el, {
       y: 18,
       x: -10,

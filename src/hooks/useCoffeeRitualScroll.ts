@@ -1,6 +1,7 @@
 import { useEffect, type RefObject } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -15,9 +16,11 @@ export function useCoffeeRitualScroll({
   enabled,
   themeId,
 }: UseCoffeeRitualScrollOptions) {
+  const prefersReducedMotion = usePrefersReducedMotion()
+
   useEffect(() => {
     const root = rootRef.current
-    if (!root || !enabled) return
+    if (!root || !enabled || prefersReducedMotion) return
 
     const pin = document.querySelector('#coffee-ritual-pin')
     if (!pin) return
@@ -202,5 +205,5 @@ export function useCoffeeRitualScroll({
     }, root)
 
     return () => ctx.revert()
-  }, [enabled, rootRef, themeId])
+  }, [enabled, prefersReducedMotion, rootRef, themeId])
 }

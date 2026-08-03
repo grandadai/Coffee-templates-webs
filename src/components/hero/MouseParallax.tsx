@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, type ReactNode } from 'react'
 import gsap from 'gsap'
 import { useBreakpoint } from '@/hooks/useMediaQuery'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import {
   MouseParallaxContext,
   type MouseParallaxContextValue,
@@ -14,6 +15,7 @@ type MouseParallaxProps = {
 
 export function MouseParallax({ children, className }: MouseParallaxProps) {
   const { isMobile } = useBreakpoint()
+  const prefersReducedMotion = usePrefersReducedMotion()
   const listeners = useRef(new Set<(values: ParallaxValues) => void>())
   const target = useRef({ x: 0, y: 0 })
   const current = useRef<ParallaxValues>({
@@ -23,10 +25,10 @@ export function MouseParallax({ children, className }: MouseParallaxProps) {
     rotateY: 0,
   })
 
-  const amplitudeScale = isMobile ? 0.4 : 1
+  const amplitudeScale = prefersReducedMotion ? 0 : isMobile ? 0.4 : 1
 
   useEffect(() => {
-    if (isMobile) {
+    if (isMobile || prefersReducedMotion) {
       target.current = { x: 0, y: 0 }
       return
     }
@@ -49,9 +51,11 @@ export function MouseParallax({ children, className }: MouseParallaxProps) {
       window.removeEventListener('pointermove', onMove)
       window.removeEventListener('pointerleave', onLeave)
     }
-  }, [isMobile])
+  }, [isMobile, prefersReducedMotion])
 
   useEffect(() => {
+    if (prefersReducedMotion) return
+
     const tick = () => {
       current.current.x = gsap.utils.interpolate(
         current.current.x,
@@ -81,7 +85,7 @@ export function MouseParallax({ children, className }: MouseParallaxProps) {
     return () => {
       gsap.ticker.remove(tick)
     }
-  }, [amplitudeScale])
+  }, [amplitudeScale, prefersReducedMotion])
 
   const value = useMemo<MouseParallaxContextValue>(
     () => ({

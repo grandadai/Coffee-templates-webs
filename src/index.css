@@ -65,6 +65,16 @@
   transform: translateZ(0);
 }
 
+/* SplitType line masks — overflow clip for rise reveals */
+.split-line-mask {
+  overflow: hidden;
+  display: block;
+}
+
+.split-line {
+  display: block;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

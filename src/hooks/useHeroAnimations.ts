@@ -2,6 +2,7 @@ import { useEffect, type RefObject } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import type { HeroLayout } from '@/types/hero'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -18,9 +19,11 @@ export function useHeroAnimations({
   themeId,
   layout = 'split',
 }: UseHeroAnimationsOptions) {
+  const prefersReducedMotion = usePrefersReducedMotion()
+
   useEffect(() => {
     const root = rootRef.current
-    if (!root || !enabled) return
+    if (!root || !enabled || prefersReducedMotion) return
 
     const ctx = gsap.context(() => {
       const nav = root.querySelector('.hero-nav')
@@ -53,8 +56,8 @@ export function useHeroAnimations({
       })
 
       intro
-        .to(bg, { opacity: 1, duration: 0.7 }, 0)
-        .to(nav, { opacity: 1, y: 0, duration: 0.7 }, 0.15)
+        .to(bg, { opacity: 1, duration: 0.9 }, 0)
+        .to(nav, { opacity: 1, y: 0, duration: 0.85 }, 0.15)
         .to(mockup, { opacity: 1, scale: 1, duration: 1.05 }, 0.2)
         .to(product, { opacity: 1, y: 0, scale: 1, duration: 1.05 }, 0.35)
         .to(
@@ -65,7 +68,7 @@ export function useHeroAnimations({
             opacity: 1,
             y: 0,
             scale: 1,
-            duration: 0.75,
+            duration: 0.85,
             stagger: 0.08,
           },
           0.55,
@@ -75,22 +78,36 @@ export function useHeroAnimations({
           {
             yPercent: 0,
             opacity: 1,
-            duration: 0.7,
-            stagger: 0.045,
+            duration: 0.85,
+            stagger: 0.05,
           },
           0.45,
         )
-        .to(sub, { opacity: 1, y: 0, duration: 0.6 }, 0.85)
+        .to(sub, { opacity: 1, y: 0, duration: 0.8 }, 0.85)
         .to(
           buttons,
           {
             opacity: 1,
             y: 0,
-            duration: 0.6,
+            duration: 0.8,
             stagger: 0.08,
           },
           0.95,
         )
+
+      // Subtle hero parallax on scroll (background + stage depth)
+      if (bg) {
+        gsap.to(bg, {
+          yPercent: 12,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: root,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+          },
+        })
+      }
 
       // Split layout keeps the lighter scrub parallax (agency)
       if (layout === 'split' && mockup && product) {
@@ -158,5 +175,5 @@ export function useHeroAnimations({
     return () => {
       ctx.revert()
     }
-  }, [enabled, layout, rootRef, themeId])
+  }, [enabled, layout, prefersReducedMotion, rootRef, themeId])
 }
